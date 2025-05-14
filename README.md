@@ -5,6 +5,7 @@ FluxFinance is a lightweight web-based accounting application built with Node.js
 ## ✅ Features
 
 - Lightweight accounting management
+- Purchase invoice management with automatic calculations
 - Handlebars templating for dynamic server-side views
 - Vue-enhanced UI components using CDN
 - Persistent data using SQLite
@@ -69,6 +70,37 @@ fluxfinance/
 For demo purposes, you can use the following credentials:
 - **Email**: user@example.com
 - **Password**: password123
+
+## 📝 Purchase Invoices
+
+The purchase invoice functionality allows accountants to:
+
+- View a list of existing purchase invoices
+- Add new purchase invoices with a user-friendly modal interface
+- Track key invoice details:
+  - Invoice number (auto-generated)
+  - Date
+  - Description
+  - Quantity
+  - Price
+  - Currency (EUR, USD, GBP)
+  - VAT percentage
+  - Payment method
+- Automatic calculation of:
+  - Subtotal (price × quantity)
+  - VAT amount (subtotal × VAT%)
+  - Total amount (subtotal + VAT amount)
+- User-friendly interface with:
+  - Save button to submit the invoice and see it immediately in the table
+  - Cancel button to discard changes and close the form
+  - Visual feedback with a highlight effect for newly added invoices
+
+To access this feature:
+1. Sign in using the demo credentials
+2. Navigate to "Purchase Invoices" in the main menu
+3. Click the "New Invoice" button to create a new invoice
+4. Fill in the required information
+5. Click "Save" to submit or "Cancel" to discard
 
 ## 📃 License
 

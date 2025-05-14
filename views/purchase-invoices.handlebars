@@ -1,0 +1,361 @@
+<h1>Purchase Invoices</h1>
+
+<div class="header-actions">
+  <button class="btn-primary" id="new-invoice-btn">New Invoice</button>
+</div>
+
+<!-- Modal -->
+<div id="invoice-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Add New Invoice</h2>
+    <form id="invoice-modal-form">
+      <div class="form-group">
+        <label for="invoice-number-modal">Invoice Number</label>
+        <input type="text" id="invoice-number-modal" name="invoiceNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="invoice-date">Date</label>
+        <input type="date" id="invoice-date" name="date" required>
+      </div>
+      <div class="form-group">
+        <label for="invoice-description">Description</label>
+        <textarea id="invoice-description" name="description" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="invoice-quantity">Quantity</label>
+        <input type="number" id="invoice-quantity" name="quantity" min="1" step="1" value="1" required>
+      </div>
+      <div class="form-group">
+        <label for="invoice-price">Price</label>
+        <input type="number" id="invoice-price" name="price" min="0" step="0.01" required>
+      </div>
+      <div class="form-group">
+        <label for="invoice-currency">Currency</label>
+        <select id="invoice-currency" name="currency" required>
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="invoice-vat">VAT Percentage</label>
+        <input type="number" id="invoice-vat" name="vatPercentage" min="0" max="100" step="0.1" value="20" required>
+      </div>
+      <div class="form-group">
+        <label for="invoice-payment-method">Payment Method</label>
+        <select id="invoice-payment-method" name="paymentMethod" required>
+          <option value="bank_transfer">Bank Transfer</option>
+          <option value="credit_card">Credit Card</option>
+          <option value="cash">Cash</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <hr class="form-divider">
+      <div class="calculation-section">
+        <div class="form-group">
+          <label for="invoice-subtotal">Subtotal</label>
+          <div class="input-with-currency">
+            <input type="text" id="invoice-subtotal" name="subtotal" readonly value="0.00">
+            <span class="currency-symbol" id="subtotal-currency">EUR</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="invoice-vat-amount">VAT Amount</label>
+          <div class="input-with-currency">
+            <input type="text" id="invoice-vat-amount" name="vatAmount" readonly value="0.00">
+            <span class="currency-symbol" id="vat-currency">EUR</span>
+          </div>
+        </div>
+        <div class="form-group total-amount">
+          <label for="invoice-total">Total Amount</label>
+          <div class="input-with-currency">
+            <input type="text" id="invoice-total" name="totalAmount" readonly value="0.00">
+            <span class="currency-symbol" id="total-currency">EUR</span>
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="btn-primary" id="save-btn">Save</button>
+        <button type="button" class="btn-secondary" id="cancel-btn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card" id="invoice-form-card">
+  <h2>Add New Purchase Invoice</h2>
+  <form id="purchase-invoice-form">
+    <div class="form-group">
+      <label for="invoice-number">Invoice Number</label>
+      <input type="text" id="invoice-number" name="invoiceNumber" required>
+    </div>
+    <div class="form-group">
+      <label for="vendor">Vendor</label>
+      <input type="text" id="vendor" name="vendor" required>
+    </div>
+    <div class="form-group">
+      <label for="issue-date">Issue Date</label>
+      <input type="date" id="issue-date" name="issueDate" required>
+    </div>
+    <div class="form-group">
+      <label for="due-date">Due Date</label>
+      <input type="date" id="due-date" name="dueDate" required>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="number" id="amount" name="amount" step="0.01" required>
+    </div>
+    <button type="submit" class="btn-primary">Save Invoice</button>
+  </form>
+  <div id="message"></div>
+</div>
+
+<div class="card">
+  <h2>Recent Purchase Invoices</h2>
+  <table id="invoices-table">
+    <thead>
+      <tr>
+        <th>Invoice #</th>
+        <th>Vendor</th>
+        <th>Issue Date</th>
+        <th>Due Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if invoices.length}}
+        {{#each invoices}}
+          <tr>
+            <td>{{invoice_number}}</td>
+            <td>{{vendor}}</td>
+            <td>{{formatDate issue_date}}</td>
+            <td>{{formatDate due_date}}</td>
+            <td>${{formatAmount amount}}</td>
+            <td>{{status}}</td>
+          </tr>
+        {{/each}}
+      {{else}}
+        <tr>
+          <td colspan="6" class="text-center">No purchase invoices found</td>
+        </tr>
+      {{/if}}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .header-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .btn-primary {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background-color: #1a252f;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  table th, table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  #message {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .message-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .message-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+
+  /* Button group styles */
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+  }
+
+  .button-group button {
+    min-width: 100px;
+    font-weight: 500;
+  }
+
+  .button-group .btn-primary {
+    margin-right: 0.5rem;
+  }
+
+  .button-group .btn-secondary {
+    margin-left: 0;
+  }
+
+  /* Calculation section styles */
+  .form-divider {
+    margin: 1.5rem 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+  }
+
+  .calculation-section {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .input-with-currency {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-with-currency input {
+    padding-right: 3rem;
+    font-weight: 500;
+    background-color: #fff;
+  }
+
+  .currency-symbol {
+    position: absolute;
+    right: 0.5rem;
+    color: #6c757d;
+    font-weight: 500;
+  }
+
+  .total-amount label {
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .total-amount input {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    border: 2px solid #2c3e50;
+  }
+
+  /* New invoice highlight */
+  @keyframes highlightFade {
+    0% { background-color: #d4edda; }
+    100% { background-color: transparent; }
+  }
+
+  .new-invoice-highlight {
+    animation: highlightFade 3s ease-out;
+  }
+</style>
+
+<script src="/js/purchase-invoices.js"></script>
