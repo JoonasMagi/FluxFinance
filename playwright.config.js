@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from '@playwright/test';
-import path from 'path';
 
 export default defineConfig({
   testDir: './e2e', // Only look for Playwright tests in the e2e directory
@@ -12,6 +11,12 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },
+
+  // Reporter configuration
+  reporter: [
+    ['html', { outputFolder: 'playwright-report' }],
+    ['json', { outputFile: 'playwright-report/test-results.json' }],
+  ],
 
   // Set up projects for different test scenarios
   projects: [
