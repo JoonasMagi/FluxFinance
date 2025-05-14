@@ -27,7 +27,15 @@ FluxFinance is a lightweight web-based accounting application built with Node.js
 npm install
 ```
 
-### 2. Initialize the Database
+### 2. Create the Database Directory
+
+Before initializing the database, create the `db` directory:
+
+```bash
+mkdir db
+```
+
+### 3. Initialize the Database
 
 ```bash
 npm run init:db
