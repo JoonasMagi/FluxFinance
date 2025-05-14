@@ -123,6 +123,16 @@ To access this feature:
 4. Fill in the required information
 5. Click "Save" to submit or "Cancel" to discard
 
+## 🔄 Continuous Integration
+
+This project uses GitHub Actions for continuous integration. The workflow:
+- Runs on every push to main and on pull requests
+- Sets up Node.js and installs dependencies
+- Initializes the database
+- Starts the server
+- Runs Playwright tests
+- Uploads test results as artifacts
+
 ## 📃 License
 
 MIT License © 2025 FluxFinance Team
