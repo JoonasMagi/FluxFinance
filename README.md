@@ -27,6 +27,15 @@ FluxFinance is a lightweight web-based accounting application built with Node.js
 npm install
 ```
 
+#### Optional: Install Playwright Browsers
+
+If you plan to run Playwright tests, you also need to install the browsers:
+
+```bash
+npx playwright install
+```
+
+
 ### 2. Create the Database Directory
 
 Before initializing the database, create the `db` directory:
