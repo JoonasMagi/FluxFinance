@@ -35,26 +35,10 @@ jobs:
       - name: Initialize database
         run: npm run init:db
 
-      - name: Start server and run tests
+      - name: Run tests
         run: |
-          # Start the server in the background
-          npm start &
-          # Save the process ID
-          SERVER_PID=$!
-          # Wait for the server to start
-          echo "Waiting for server to start..."
-          sleep 5
-          # Check if the server is running
-          if curl -s http://localhost:3000 > /dev/null; then
-            echo "Server is running"
-          else
-            echo "Server failed to start"
-            exit 1
-          fi
-          # Run the tests
+          # Use the webServer option in playwright.config.js to start the server
           npm test
-          # Kill the server process
-          kill $SERVER_PID
 
       - name: Upload test results
         if: always()
