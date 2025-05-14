@@ -10,14 +10,14 @@ FluxFinance is a lightweight web-based accounting application built with Node.js
 - Vue-enhanced UI components using CDN
 - Persistent data using SQLite
 - Fast and modern backend powered by Node.js
-- Comprehensive test suite with Jest
+- Comprehensive end-to-end test suite with Playwright
 
 ## 🛠 Tech Stack
 
 - **Backend**: Node.js, Express, SQLite
 - **Templating**: Handlebars
 - **Frontend**: Vue.js (via CDN)
-- **Testing**: Jest, Testing Library
+- **Testing**: Playwright
 
 ## ⚙️ Installation
 
@@ -63,7 +63,11 @@ Visit http://localhost:3000 in your browser.
 ### 4. Run Tests
 
 ```bash
+# Run all tests
 npm test
+
+# Run tests with UI mode
+npm run test:ui
 ```
 
 ## 📁 Project Structure
@@ -74,11 +78,11 @@ fluxfinance/
 │   └── layouts/        # Layout templates
 ├── public/             # Static assets (CSS, JS, icons)
 ├── routes/             # Express route modules
-├── tests/              # Test files
+├── e2e/                # Playwright end-to-end tests
 ├── db/                 # SQLite DB and schema setup
 ├── app.js              # Main server entry point
 ├── init-db.js          # DB initialization script
-├── jest.config.js      # Jest configuration
+├── playwright.config.js # Playwright configuration
 └── package.json        # Project dependencies
 ```
 
