@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FluxFinance</title>
+  <!-- Vue.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body>
+  <nav id="main-menu">
+    <ul>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/invoices/purchase">Purchase invoices</a></li>
+    </ul>
+  </nav>
+  <div id="app">
+    <!-- Vue components can be mounted here -->
+    <h1>Welcome to FluxFinance</h1>
+  </div>
+  <!-- Sign-in overlay -->
+  <div id="signin-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">
+    <div style="background:#fff;padding:2em;border-radius:8px;min-width:300px;text-align:center;">
+      <h2 id="signin-title">Sign in to continue</h2>
+      <form id="signin-form" aria-labelledby="signin-title">
+        <div style="margin-bottom:1em;text-align:left;">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="username" required aria-required="true" />
+        </div>
+        <div style="margin-bottom:1em;text-align:left;">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required aria-required="true" />
+        </div>
+        <button type="submit">Sign In</button>
+        <div id="message" aria-live="polite" style="margin-top:1em;"></div>
+      </form>
+    </div>
+  </div>
+  <script>
+    // This will be set by the server in a real app
+    window.isAuthenticated = false;
+  </script>
+  <!-- Include the overlay and signin scripts -->
+  <script src="/overlay.js"></script>
+  <script src="/signin.js"></script>
+</body>
+</html>
