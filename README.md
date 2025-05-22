@@ -92,6 +92,45 @@ For demo purposes, you can use the following credentials:
 - **Email**: user@example.com
 - **Password**: password123
 
+## 🧪 Testing with Playwright
+
+This project uses Playwright for end-to-end testing. The test files are located in the `e2e/` directory.
+
+### Running Tests
+
+```bash
+# Install Playwright browsers (first time only)
+npx playwright install
+
+# Run all tests in headless mode
+npx playwright test
+
+# Run a specific test file
+npx playwright test e2e/customers.spec.js
+
+# Run tests in headed mode (to see the browser)
+npx playwright test --headed
+
+# Run tests with UI mode (interactive test runner)
+npx playwright test --ui
+
+# Generate and open HTML test report
+npx playwright show-report
+```
+### Test Structure
+
+- `e2e/auth.setup.js` - Authentication helper functions
+- `e2e/customers.spec.js` - Customer management tests
+- Other test files follow the `*.spec.js` naming convention
+
+### Writing Tests
+
+When adding new features, follow the TDD (Test-Driven Development) approach:
+
+1. Write a failing test first
+2. Implement the minimum code to make the test pass
+3. Refactor if needed
+
 ## 📝 Purchase Invoices
 
 The purchase invoice functionality allows accountants to:

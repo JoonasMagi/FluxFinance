@@ -1,0 +1,200 @@
+<div class="customers-page">
+  <div class="header">
+    <h1>Customers</h1>
+    <button id="add-customer-btn" class="btn btn-primary">Add Customer</button>
+  </div>
+
+  <div id="customer-form-container" class="card" style="display: none; margin-bottom: 2rem;">
+    <h2>Add New Customer</h2>
+    <form id="customer-form">
+      <div class="form-group">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea id="address" name="address" rows="3"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="button" id="cancel-customer" class="btn btn-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Customer</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="customers-list card">
+    {{#if customers.length}}
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each customers}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.email}}</td>
+              <td>{{this.phone}}</td>
+              <td>{{this.address}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      <p>No customers found. Add your first customer using the button above.</p>
+    {{/if}}
+  </div>
+</div>
+
+<style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"],
+  .form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-primary {
+    background-color: #2c3e50;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1a252f;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .data-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+  }
+  
+  .data-table tr:hover {
+    background-color: #f8f9fa;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const addCustomerBtn = document.getElementById('add-customer-btn');
+  const customerFormContainer = document.getElementById('customer-form-container');
+  const customerForm = document.getElementById('customer-form');
+  const cancelBtn = document.getElementById('cancel-customer');
+  
+  // Toggle form visibility
+  addCustomerBtn.addEventListener('click', function() {
+    customerFormContainer.style.display = 'block';
+    addCustomerBtn.style.display = 'none';
+  });
+  
+  cancelBtn.addEventListener('click', function() {
+    customerFormContainer.style.display = 'none';
+    addCustomerBtn.style.display = 'block';
+    customerForm.reset();
+  });
+  
+  // Handle form submission
+  customerForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(customerForm);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      address: formData.get('address')
+    };
+    
+    try {
+      const response = await fetch('/customers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Reload the page to show the new customer
+        window.location.reload();
+      } else {
+        alert(result.message || 'Error adding customer');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while adding the customer');
+    }
+  });
+});
+</script>

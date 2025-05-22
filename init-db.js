@@ -94,8 +94,26 @@ function createTables(db) {
           }
           console.log('Purchase invoices table created or already exists.');
 
-          // Insert demo data
-          insertDemoData(db);
+          // Create customers table
+          db.run(`
+            CREATE TABLE IF NOT EXISTS customers (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              name TEXT NOT NULL,
+              email TEXT,
+              phone TEXT,
+              address TEXT,
+              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+          `, (err) => {
+            if (err) {
+              console.error('Error creating customers table:', err.message);
+              return;
+            }
+            console.log('Customers table created or already exists.');
+
+            // Insert demo data
+            insertDemoData(db);
+          });
         });
       });
     });
@@ -334,5 +352,7 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
+
+export { db };
 
 console.log('Database initialization complete.');

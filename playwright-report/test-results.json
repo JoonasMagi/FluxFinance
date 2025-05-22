@@ -1,0 +1,165 @@
+{
+  "config": {
+    "configFile": "/home/lembit/WebstormProjects/FluxFinance/playwright.config.js",
+    "rootDir": "/home/lembit/WebstormProjects/FluxFinance/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "playwright-report/test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/lembit/WebstormProjects/FluxFinance/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "setup",
+        "name": "setup",
+        "testDir": "/home/lembit/WebstormProjects/FluxFinance/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "/auth\\.setup\\.js/"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/lembit/WebstormProjects/FluxFinance/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "authenticated",
+        "name": "authenticated",
+        "testDir": "/home/lembit/WebstormProjects/FluxFinance/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.js/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.52.0",
+    "workers": 8,
+    "webServer": {
+      "command": "npm run start",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 5000
+    }
+  },
+  "suites": [
+    {
+      "title": "auth.setup.js",
+      "file": "auth.setup.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "authenticate",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "setup",
+              "projectName": "setup",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 630,
+                  "error": {
+                    "message": "ReferenceError: expect is not defined",
+                    "stack": "ReferenceError: expect is not defined\n    at login (/home/lembit/WebstormProjects/FluxFinance/tests/utils/auth.js:8:3)\n    at /home/lembit/WebstormProjects/FluxFinance/e2e/auth.setup.js:6:3",
+                    "location": {
+                      "file": "/home/lembit/WebstormProjects/FluxFinance/tests/utils/auth.js",
+                      "column": 3,
+                      "line": 8
+                    },
+                    "snippet": "\u001b[90m   at \u001b[39m../tests/utils/auth.js:8\n\n\u001b[0m \u001b[90m  6 |\u001b[39m   \u001b[90m// Verify the sign-in overlay is visible\u001b[39m\n \u001b[90m  7 |\u001b[39m   \u001b[36mconst\u001b[39m overlay \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#signin-overlay'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m expect(overlay)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 |\u001b[39m   \n \u001b[90m 10 |\u001b[39m   \u001b[90m// Fill in the login form\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'#email'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'user@example.com'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/home/lembit/WebstormProjects/FluxFinance/tests/utils/auth.js",
+                        "column": 3,
+                        "line": 8
+                      },
+                      "message": "ReferenceError: expect is not defined\n\n\u001b[90m   at \u001b[39m../tests/utils/auth.js:8\n\n\u001b[0m \u001b[90m  6 |\u001b[39m   \u001b[90m// Verify the sign-in overlay is visible\u001b[39m\n \u001b[90m  7 |\u001b[39m   \u001b[36mconst\u001b[39m overlay \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#signin-overlay'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m expect(overlay)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 |\u001b[39m   \n \u001b[90m 10 |\u001b[39m   \u001b[90m// Fill in the login form\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'#email'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'user@example.com'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at login (/home/lembit/WebstormProjects/FluxFinance/tests/utils/auth.js:8:3)\u001b[22m\n\u001b[2m    at /home/lembit/WebstormProjects/FluxFinance/e2e/auth.setup.js:6:3\u001b[22m"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-22T09:33:38.450Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/lembit/WebstormProjects/FluxFinance/test-results/auth.setup.js-authenticate-setup/test-failed-1.png"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/home/lembit/WebstormProjects/FluxFinance/tests/utils/auth.js",
+                    "column": 3,
+                    "line": 8
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "f376efe52c54b1a876fd-9d03a3bb502e264caa3f",
+          "file": "auth.setup.js",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-05-22T09:33:36.160Z",
+    "duration": 3244.303,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -1,24 +1,9 @@
 import { test as setup, expect } from '@playwright/test';
+import { login } from '../tests/utils/auth.js';
 
-// This file will be used to set up authentication for all tests
+// This setup will run before all tests
 setup('authenticate', async ({ page }) => {
-  // Go to the homepage which shows the login form
-  await page.goto('http://localhost:3000');
-  
-  // Verify the sign-in overlay is visible
-  const overlay = page.locator('#signin-overlay');
-  await expect(overlay).toBeVisible();
-  
-  // Fill in the login form
-  await page.fill('#email', 'user@example.com');
-  await page.fill('#password', 'password123');
-  
-  // Click the sign-in button
-  await page.click('#signin-form button');
-  
-  // Wait for navigation or success indicator
-  // This might be a redirect to dashboard or the overlay disappearing
-  await expect(overlay).toBeHidden({ timeout: 10000 });
+  await login(page);
   
   // Store authentication state
   await page.context().storageState({ path: 'playwright/.auth/user.json' });

@@ -5,6 +5,7 @@ import session from 'express-session';
 import { engine } from 'express-handlebars';
 import authRouter from './routes/auth.js';
 import invoicesRouter from './routes/invoices.js';
+import customersRouter from './routes/customers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -47,6 +48,9 @@ app.use('/auth', authRouter);
 // Invoices routes
 app.use('/invoices', invoicesRouter);
 app.use('/api/invoices', invoicesRouter);
+
+// Customers routes
+app.use('/customers', customersRouter);
 
 // Dashboard route (protected)
 app.get('/dashboard', (req, res) => {
